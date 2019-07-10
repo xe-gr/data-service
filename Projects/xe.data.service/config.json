@@ -1,0 +1,18 @@
+﻿[
+  {
+    "DatabaseType": "SqlServer",
+    "ConnectionString": "Server=localhost;Database=autocomplete;Uid=sa;Pwd=test",
+    "SqlCommand": "SELECT TOP 10 * FROM Locations",
+    "CommandTimeout": 30,
+    "Name": "sample",
+    "Parameters": ""
+  },
+  {
+    "DatabaseType": "SqlServer",
+    "ConnectionString": "Server=localhost;Database=autocomplete;Uid=sa;Pwd=test",
+    "SqlCommand": "SELECT TOP $count$ * FROM Locations",
+    "CommandTimeout": 30,
+    "Name": "sample2",
+    "Parameters": "count"
+  }
+]
