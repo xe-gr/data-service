@@ -98,7 +98,7 @@ namespace xe.data.service.Services
 
 		private List<dynamic> Execute(ConfigurationEntry config, string sql)
 		{
-			using (var ds = _dataRetriever.RetrieveData(_dataCreator, config.ConnectionString, config.DatabaseType, sql))
+			using (var ds = _dataRetriever.RetrieveData(_dataCreator, config.ConnectionString, config.DatabaseType, sql, config.CommandTimeout))
 			{
 				if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
 				{
