@@ -27,7 +27,6 @@ namespace xe.data.service.Controllers
 			try
 			{
 				return Ok(_dataService.ExecuteRequest(name, parameters, values));
-
 			}
 			catch (ConfigurationNotFoundException e)
 			{
