@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xe.data.service", "..\Projects\xe.data.service\xe.data.service.csproj", "{DA5A9E39-A532-45ED-8F83-161235CD2A97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xe.data.service", "..\Projects\xe.data.service\xe.data.service.csproj", "{DA5A9E39-A532-45ED-8F83-161235CD2A97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xe.data.service.Tests", "..\Tests\xe.data.service.Tests\xe.data.service.Tests.csproj", "{4920CAB4-6A81-44D0-A7BE-BA000E68CDC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DA5A9E39-A532-45ED-8F83-161235CD2A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA5A9E39-A532-45ED-8F83-161235CD2A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA5A9E39-A532-45ED-8F83-161235CD2A97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4920CAB4-6A81-44D0-A7BE-BA000E68CDC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4920CAB4-6A81-44D0-A7BE-BA000E68CDC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4920CAB4-6A81-44D0-A7BE-BA000E68CDC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4920CAB4-6A81-44D0-A7BE-BA000E68CDC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
