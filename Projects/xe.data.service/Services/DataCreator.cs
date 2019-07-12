@@ -2,6 +2,7 @@
 using System;
 using System.Data.Common;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using xe.data.service.Models;
 using xe.data.service.Services.Interfaces;
 
@@ -18,7 +19,7 @@ namespace xe.data.service.Services
                 case DatabaseType.Oracle:
                     return new OracleDataAdapter((OracleCommand)command);
                 case DatabaseType.MySql:
-                    throw new NotImplementedException();
+                    return new MySqlDataAdapter((MySqlCommand) command);
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }
@@ -33,7 +34,7 @@ namespace xe.data.service.Services
                 case DatabaseType.Oracle:
                     return new OracleCommand(sql, (OracleConnection)connection);
                 case DatabaseType.MySql:
-                    throw new NotImplementedException();
+                    return new MySqlCommand(sql, (MySqlConnection)connection);
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }
@@ -48,7 +49,7 @@ namespace xe.data.service.Services
                 case DatabaseType.Oracle:
                     return new OracleConnection(connectionString);
                 case DatabaseType.MySql:
-                    throw new NotImplementedException();
+                    return new MySqlConnection(connectionString);
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }
