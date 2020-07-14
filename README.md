@@ -1,5 +1,5 @@
 # data-service
-The data service is a simple REST service that runs SQL statements on databases on behalf of a caller and returns the results back. It supports SQL Server, Oracle and MySQL.
+The data service is a simple REST service that runs SQL statements on databases on behalf of a caller and returns the results back. It supports SQL Server, Postgres, Oracle and MySQL.
 
 SQL statements are configured in file config.json. Here is an example:
 

@@ -3,6 +3,7 @@ using System;
 using System.Data.Common;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using Npgsql;
 using xe.data.service.Models;
 using xe.data.service.Services.Interfaces;
 
@@ -20,6 +21,8 @@ namespace xe.data.service.Services
                     return new OracleDataAdapter((OracleCommand)command);
                 case DatabaseType.MySql:
                     return new MySqlDataAdapter((MySqlCommand) command);
+                case DatabaseType.Postgres:
+                    return new NpgsqlDataAdapter((NpgsqlCommand) command);
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }
@@ -35,6 +38,8 @@ namespace xe.data.service.Services
                     return new OracleCommand(sql, (OracleConnection)connection);
                 case DatabaseType.MySql:
                     return new MySqlCommand(sql, (MySqlConnection)connection);
+                case DatabaseType.Postgres:
+                    return new NpgsqlCommand(sql, (NpgsqlConnection) connection);
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }
@@ -50,6 +55,8 @@ namespace xe.data.service.Services
                     return new OracleConnection(connectionString);
                 case DatabaseType.MySql:
                     return new MySqlConnection(connectionString);
+                case DatabaseType.Postgres:
+                    return new NpgsqlConnection(connectionString);
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }

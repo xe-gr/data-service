@@ -15,6 +15,8 @@ namespace xe.data.service.Extensions
                     return DatabaseType.Oracle;
                 case "mysql":
                     return DatabaseType.MySql;
+                case "postgres":
+                    return DatabaseType.Postgres;
                 default:
                     throw new InvalidOperationException($"Invalid database type [{databaseType}]");
             }

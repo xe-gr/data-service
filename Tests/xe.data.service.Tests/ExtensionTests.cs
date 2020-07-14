@@ -11,6 +11,7 @@ namespace xe.data.service.Tests
         [InlineData("SqLsErVeR", DatabaseType.SqlServer)]
         [InlineData("OrAcLe", DatabaseType.Oracle)]
         [InlineData("MySqL", DatabaseType.MySql)]
+        [InlineData("PostGRES", DatabaseType.Postgres)]
         public void ValidateDatabaseTypeMapping(string text, DatabaseType expectedType)
         {
             Assert.Equal(expectedType, text.ToDatabaseType());
