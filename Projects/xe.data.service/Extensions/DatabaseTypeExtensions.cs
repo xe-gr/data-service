@@ -7,19 +7,14 @@ namespace xe.data.service.Extensions
     {
         public static DatabaseType ToDatabaseType (this string databaseType)
         {
-            switch (databaseType.ToLower())
+            return databaseType.ToLower() switch
             {
-                case "sqlserver":
-                    return DatabaseType.SqlServer;
-                case "oracle":
-                    return DatabaseType.Oracle;
-                case "mysql":
-                    return DatabaseType.MySql;
-                case "postgres":
-                    return DatabaseType.Postgres;
-                default:
-                    throw new InvalidOperationException($"Invalid database type [{databaseType}]");
-            }
+                "sqlserver" => DatabaseType.SqlServer,
+                "oracle" => DatabaseType.Oracle,
+                "mysql" => DatabaseType.MySql,
+                "postgres" => DatabaseType.Postgres,
+                _ => throw new InvalidOperationException($"Invalid database type [{databaseType}]")
+            };
         }
     }
 }

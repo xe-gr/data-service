@@ -9,22 +9,13 @@ using xe.data.service.Services.Interfaces;
 
 namespace xe.data.service.Services
 {
-	public class DataService : IDataService
-	{
-		private readonly IConfigurationReader _configurationReader;
-		private readonly IDataCreator _dataCreator;
-		private readonly IDataRetriever _dataRetriever;
-
-		public DataService(IConfigurationReader configurationReader,
-			IDataCreator dataCreator,
-			IDataRetriever dataRetriever)
-		{
-			_configurationReader = configurationReader;
-			_dataCreator = dataCreator;
-			_dataRetriever = dataRetriever;
-		}
-
-		public List<dynamic> ExecuteRequest(string name, string parameters, string values)
+	public class DataService(
+        IConfigurationReader configurationReader,
+        IDataCreator dataCreator,
+        IDataRetriever dataRetriever)
+        : IDataService
+    {
+        public List<dynamic> ExecuteRequest(string name, string parameters, string values)
 		{
 			Validate(name, parameters, values,
 				out var requestedParams,
@@ -50,7 +41,7 @@ namespace xe.data.service.Services
 				throw new BadRequestException("No config requested");
 			}
 
-			var configs = _configurationReader.ReadConfiguration();
+			var configs = configurationReader.ReadConfiguration();
 			config = configs.FirstOrDefault(x => string.Equals(x.Name.ToLower(), name.ToLower(), StringComparison.InvariantCulture));
 
 			if (config == null)
@@ -73,7 +64,7 @@ namespace xe.data.service.Services
 			}
 		}
 
-		private string CreateSql(ICollection<string> requestedParams,
+		private static string CreateSql(List<string> requestedParams,
 			IReadOnlyList<string> passedParams,
 			IReadOnlyList<string> passedValues,
 			ConfigurationEntry config)
@@ -98,11 +89,11 @@ namespace xe.data.service.Services
 
 		private List<dynamic> Execute(ConfigurationEntry config, string sql)
 		{
-			using (var ds = _dataRetriever.RetrieveData(_dataCreator, config.ConnectionString, config.DatabaseType, sql, config.CommandTimeout))
+			using (var ds = dataRetriever.RetrieveData(dataCreator, config.ConnectionString, config.DatabaseType, sql, config.CommandTimeout))
 			{
 				if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
 				{
-					return new List<dynamic>();
+					return [];
 				}
 
 				var rows = new List<dynamic>();
@@ -126,9 +117,9 @@ namespace xe.data.service.Services
 			}
 		}
 
-		private List<string> Parse(string commaSeparated)
+		private static List<string> Parse(string commaSeparated)
 		{
-			return string.IsNullOrWhiteSpace(commaSeparated) ? new List<string>() : commaSeparated.Split(',').ToList();
+			return string.IsNullOrWhiteSpace(commaSeparated) ? [] : [.. commaSeparated.Split(',')];
 		}
 	}
 }

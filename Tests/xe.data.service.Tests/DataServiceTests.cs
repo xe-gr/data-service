@@ -26,7 +26,7 @@ namespace xe.data.service.Tests
         {
             var mockReader = A.Fake<IConfigurationReader>(x => x.Strict());
             A.CallTo(() => mockReader.ReadConfiguration())
-                .Returns(new List<ConfigurationEntry>());
+                .Returns([]);
 
             var service = new DataService(mockReader, null, null);
 

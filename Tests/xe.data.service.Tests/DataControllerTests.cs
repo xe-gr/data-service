@@ -83,7 +83,7 @@ namespace xe.data.service.Tests
         {
             var mockService = A.Fake<IDataService>(x => x.Strict());
             A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
-                .Returns(new List<dynamic>());
+                .Returns([]);
 
             var controller = new DataController(mockService);
 
