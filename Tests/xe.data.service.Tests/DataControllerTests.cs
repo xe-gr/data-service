@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
 using xe.data.service.Controllers;
 using xe.data.service.Exceptions;
 using xe.data.service.Services.Interfaces;
@@ -14,11 +14,11 @@ namespace xe.data.service.Tests
         [Fact]
         public void ConfigurationNotFound()
         {
-            var mockService = new Mock<IDataService>(MockBehavior.Strict);
-            mockService.Setup(x => x.ExecuteRequest("name", "param1", "value1"))
-                .Throws(new ConfigurationNotFoundException("test")).Verifiable();
+            var mockService = A.Fake<IDataService>(x => x.Strict());
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .Throws(new ConfigurationNotFoundException("test"));
 
-            var controller = new DataController(mockService.Object);
+            var controller = new DataController(mockService);
 
             var result = controller.Get("name", "param1", "value1");
 
@@ -29,17 +29,18 @@ namespace xe.data.service.Tests
             Assert.NotNull(r);
             Assert.Equal("test", r.Value);
 
-            mockService.Verify(x => x.ExecuteRequest("name", "param1", "value1"), Times.Once);
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .MustHaveHappenedOnceExactly();
         }
 
         [Fact]
         public void BadRequest()
         {
-            var mockService = new Mock<IDataService>(MockBehavior.Strict);
-            mockService.Setup(x => x.ExecuteRequest("name", "param1", "value1"))
-                .Throws(new BadRequestException("test")).Verifiable();
+            var mockService = A.Fake<IDataService>(x => x.Strict());
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .Throws(new BadRequestException("test"));
 
-            var controller = new DataController(mockService.Object);
+            var controller = new DataController(mockService);
 
             var result = controller.Get("name", "param1", "value1");
 
@@ -50,38 +51,41 @@ namespace xe.data.service.Tests
             Assert.NotNull(r);
             Assert.Equal("test", r.Value);
 
-            mockService.Verify(x => x.ExecuteRequest("name", "param1", "value1"), Times.Once);
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .MustHaveHappenedOnceExactly();
         }
 
         [Fact]
         public void ThrowsError()
         {
-            var mockService = new Mock<IDataService>(MockBehavior.Strict);
-            mockService.Setup(x => x.ExecuteRequest("name", "param1", "value1"))
-                .Throws(new InvalidOperationException("test")).Verifiable();
+            var mockService = A.Fake<IDataService>(x => x.Strict());
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .Throws(new InvalidOperationException("test"));
 
-            var controller = new DataController(mockService.Object);
+            var controller = new DataController(mockService);
 
             try
             {
                 controller.Get("name", "param1", "value1");
-                Assert.False(true, "Should get an exception");
+                Assert.Fail("Should get an exception");
             }
             catch (InvalidOperationException e)
             {
                 Assert.Equal("test", e.Message);
             }
-            
-            mockService.Verify(x => x.ExecuteRequest("name", "param1", "value1"), Times.Once);
+
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .MustHaveHappenedOnceExactly();
         }
 
         [Fact]
         public void Ok()
         {
-            var mockService = new Mock<IDataService>(MockBehavior.Strict);
-            mockService.Setup(x => x.ExecuteRequest("name", "param1", "value1")).Returns(new List<dynamic>()).Verifiable();
+            var mockService = A.Fake<IDataService>(x => x.Strict());
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .Returns(new List<dynamic>());
 
-            var controller = new DataController(mockService.Object);
+            var controller = new DataController(mockService);
 
             var result = controller.Get("name", "param1", "value1");
 
@@ -91,7 +95,8 @@ namespace xe.data.service.Tests
 
             Assert.NotNull(r);
 
-            mockService.Verify(x => x.ExecuteRequest("name", "param1", "value1"), Times.Once);
+            A.CallTo(() => mockService.ExecuteRequest("name", "param1", "value1"))
+                .MustHaveHappenedOnceExactly();
         }
     }
 }
