@@ -16,15 +16,17 @@ pipeline {
         )
         listGitBranches(
             branchFilter: '.*',
-            defaultValue: 'refs/head/Create-Dockerfile-and-Jenkinsfile-for-deployment-on-ECS',
+            defaultValue: 'refs/head/origin/upgrade-dotnet8',
             name: 'branch',
             type: 'BRANCH',
             remoteURL: 'https://github.com/xe-gr/data-service.git',
+            credentialsId: '',
             quickFilterEnabled: true
         )
     }
     environment {
         CLUSTER_NAME="automation-ui"
+        SERVICE_NAME="dataservice"
         AWS_REGION="eu-central-1"
         IMAGE_TAG="latest"
         AWS_ACCOUNT_ID=fetchAwsAccountId("${env.environment}")
@@ -32,7 +34,7 @@ pipeline {
         DATE_SHORT=calculateShortenedDate()
         ECR_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
         CLUSTER_ARN="arn:aws:ecs:${AWS_REGION}:${AWS_ACCOUNT_ID}:cluster/${CLUSTER_NAME}"
-        DATASERVICE_ARN="arn:aws:ecs:${AWS_REGION}:${AWS_ACCOUNT_ID}:service/dataservice"
+        SERVICE_ARN="arn:aws:ecs:${AWS_REGION}:${AWS_ACCOUNT_ID}:service/${CLUSTER_NAME}/${SERVICE_NAME}"
     }
     stages {
         stage('Checkout Source Code') {
@@ -62,7 +64,7 @@ pipeline {
         stage('Build') {
             steps {
                 script{
-                    buildDockerImage(env.DATE,env.DATE_SHORT,env.environment,env.ECR_URL,"dataservice")
+                    buildDockerImage(env.DATE,env.DATE_SHORT,env.environment,env.ECR_URL,env.SERVICE_NAME)
                 }
             }
 
@@ -71,7 +73,7 @@ pipeline {
         stage('Deploy_dataservice') {
             steps {
                 script{
-                    deployContainerToEcs(env.DATE,env.environment,env.AWS_REGION,"dataservice",env.CLUSTER_ARN,env.WEBSERVER_ARN)
+                    deployContainerToEcs(env.DATE,env.environment,env.AWS_REGION,env.SERVICE_NAME,env.CLUSTER_ARN,env.SERVICE_ARN)
                     }
                 }
         }
