@@ -25,7 +25,7 @@ pipeline {
         )
     }
     environment {
-        CLUSTER_NAME="automation-ui"
+        CLUSTER_NAME="xe-automation-desk"
         SERVICE_NAME="dataservice"
         AWS_REGION="eu-central-1"
         IMAGE_TAG="latest"
