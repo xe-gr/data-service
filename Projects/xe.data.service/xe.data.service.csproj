@@ -12,9 +12,9 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="NHibernate" Version="5.5.2" />
 		<PackageReference Include="NLog.Targets.Syslog" Version="7.0.0" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.13" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.14" />
 		<PackageReference Include="Npgsql" Version="8.0.4" />
-		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.1" />
+		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.6.0" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>
 
