@@ -11,6 +11,5 @@ ENV ASPNETCORE_HTTP_PORTS=80
 WORKDIR /app/publish/xe.data.service
 
 COPY --from=build /app/publish/xe.data.service .
-COPY --from=download_config config.json /app/publish/xe.data.service/
 ENTRYPOINT ["dotnet","xe.data.service.dll"]
 EXPOSE 80
