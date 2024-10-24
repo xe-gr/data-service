@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ENV ASPNETCORE_HTTP_PORTS=80
+ENV ASPNETCORE_HTTP_PORTS=5000
 WORKDIR /app
 
 COPY . /app
@@ -7,9 +7,10 @@ RUN dotnet publish  Projects/xe.data.service/xe.data.service.csproj --nologo --c
 RUN dotnet test Tests/xe.data.service.Tests/xe.data.service.Tests.csproj --nologo --no-restore --no-build --configuration Release --logger:html --results-directory /app/TestsResults
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS runner
-ENV ASPNETCORE_HTTP_PORTS=80
+ENV ASPNETCORE_HTTP_PORTS=5000
 WORKDIR /app/publish/xe.data.service
 
 COPY --from=build /app/publish/xe.data.service .
+COPY config.json .
 ENTRYPOINT ["dotnet","xe.data.service.dll"]
-EXPOSE 80
+EXPOSE 5000
