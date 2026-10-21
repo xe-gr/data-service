@@ -9,7 +9,7 @@ namespace xe.data.service
 	{
 		public static void Main(string[] args)
 		{
-			var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            var logger = NLog.LogManager.GetCurrentClassLogger();
 
 			try
 			{
@@ -26,8 +26,9 @@ namespace xe.data.service
 			}
 		}
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>();
-	}
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseNLog();
+    }
 }

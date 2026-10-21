@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using xe.data.service.Services;
@@ -10,13 +10,6 @@ namespace xe.data.service
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IConfigurationReader, ConfigurationReader>();
@@ -24,11 +17,12 @@ namespace xe.data.service
             services.AddTransient<IDataRetriever, DataRetriever>();
             services.AddTransient<IDataService, DataService>();
 
+            services.AddHealthChecks();
+
             services.AddRazorPages()
                 .AddRazorPagesOptions(o =>
                 {
                     o.Conventions.AuthorizeFolder("/");
-                    o.Conventions.AllowAnonymousToPage("/Index");
                 })
                 .AddNewtonsoftJson();
         }
@@ -55,7 +49,13 @@ namespace xe.data.service
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Nothing to see here. Move along.");
+                });
             });
+
+            app.UseHealthChecks("/health");
         }
     }
 }
