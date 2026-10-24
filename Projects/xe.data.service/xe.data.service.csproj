@@ -8,15 +8,15 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.13" />
-		<PackageReference Include="MySql.Data" Version="26.7.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />
+		<PackageReference Include="MySql.Data" Version="26.10.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="NHibernate" Version="5.7.0" />
 		<PackageReference Include="NLog.Targets.Syslog" Version="7.0.0" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="6.2.2" />
 		<PackageReference Include="Npgsql" Version="10.0.3" />
 		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.400" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
-		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.2" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
 	</ItemGroup>
 
 	<ItemGroup>
