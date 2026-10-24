@@ -2,7 +2,6 @@
 using System.Data;
 using FakeItEasy;
 using xe.data.service.Exceptions;
-using xe.data.service.Models;
 using xe.data.service.Services;
 using xe.data.service.Services.Interfaces;
 using Xunit;
